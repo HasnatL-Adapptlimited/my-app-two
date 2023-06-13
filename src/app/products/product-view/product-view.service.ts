@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, switchMap } from 'rxjs';
+import { Observable, of, mergeMap } from 'rxjs';
 import { ProductsService } from '../products.service';
 import { Product } from '../product';
 
@@ -10,9 +10,9 @@ export class ProductViewService {
 
   constructor(private productService: ProductsService) { }
 
-  getProducts(id: number): Observable<Product> {
+  getProduct(id: number): Observable<Product> {
     return this.productService.getProducts().pipe(
-      switchMap(products => {
+      mergeMap(products => {
         if (!this.product) {
           this.product = products[id];
         }
