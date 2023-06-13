@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { timestamp } from 'rxjs';
+import { from, timestamp } from 'rxjs';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -16,12 +16,27 @@ export class AppComponent {
   })
 
   constructor() {
-    this.title$.subscribe(this.setTitle);
+    const complete$ = from(this.onComplete());
+    complete$.subscribe(this.setTitle);
   }
 
   private setTitle = () => {
     const timestamp = new Date().getMilliseconds();
     this.title = `Learning Angular (${timestamp})`;
+  }
+
+  private changeTitle(callback: Function) {
+    setTimeout(() => {
+      callback();
+    }, 2000);
+  }
+
+  private onComplete() {
+    return new Promise<void>(resolve => {
+      setInterval(() => {
+        resolve();
+      }, 2000);
+    });
   }
 
 }

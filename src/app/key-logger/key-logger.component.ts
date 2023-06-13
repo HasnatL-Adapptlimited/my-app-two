@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { fromEvent } from 'rxjs';
+import { fromEvent, tap } from 'rxjs';
 
 @Component({
   selector: 'app-key-logger',
@@ -12,6 +12,8 @@ export class KeyLoggerComponent implements OnInit {
 
   ngOnInit(): void {
     const logger$ = fromEvent<KeyboardEvent>(this.input?.nativeElement, 'keyup');
-    logger$.subscribe(evt => this.keys += evt.key);
+    logger$.pipe(
+      tap(evt => this.keys += evt.key)
+    ).subscribe();
   }
 }
