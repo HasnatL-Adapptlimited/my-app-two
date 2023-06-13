@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { from, timestamp } from 'rxjs';
+import { from } from 'rxjs';
 import { Observable } from 'rxjs';
 
 @Component({

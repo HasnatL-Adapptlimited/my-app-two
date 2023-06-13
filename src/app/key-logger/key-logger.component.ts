@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
 import { filter, fromEvent, map, tap } from 'rxjs';
 
 @Component({
@@ -7,6 +7,7 @@ import { filter, fromEvent, map, tap } from 'rxjs';
   styleUrls: ['./key-logger.component.css']
 })
 export class KeyLoggerComponent implements OnInit {
+  @Input() numeric = false;
   @ViewChild('keyContainer', { static: true }) input: ElementRef | undefined;
   keys = '';
 
@@ -14,7 +15,12 @@ export class KeyLoggerComponent implements OnInit {
     const logger$ = fromEvent<KeyboardEvent>(this.input?.nativeElement, 'keyup');
     logger$.pipe(
       map(evt => evt.key.charCodeAt(0)),
-      filter(code => (code > 31 && (code < 48 || code > 57)) === false),
+      filter(code => {
+        if (this.numeric) {
+          return (code > 31 && (code < 48 || code > 57)) === false
+        }
+        return true;
+      }),
       tap(digit => this.keys += String.fromCharCode(digit))
     ).subscribe();
 
