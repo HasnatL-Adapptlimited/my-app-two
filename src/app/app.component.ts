@@ -16,7 +16,7 @@ export class AppComponent {
   })
 
   constructor() {
-    this.onComplete().then(this.setTitle);
+    this.title$.subscribe(this.setTitle);
   }
 
   private setTitle = () => {
