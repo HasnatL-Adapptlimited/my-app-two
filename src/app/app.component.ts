@@ -9,7 +9,7 @@ export class AppComponent {
   title = 'Test Title';
 
   constructor() {
-    this.changeTitle(this.setTitle);
+    this.onComplete().then(this.setTitle);
   }
 
   private setTitle = () => {
@@ -20,6 +20,14 @@ export class AppComponent {
     setTimeout(() => {
       callback();
     }, 2000);
+  }
+
+  private onComplete() {
+    return new Promise<void>(resolve => {
+      setTimeout(() => {
+        resolve();
+      }, 2000);
+    });
   }
 
 
