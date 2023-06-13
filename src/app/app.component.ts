@@ -24,19 +24,4 @@ export class AppComponent {
     this.title = `Learning Angular (${timestamp})`;
   }
 
-  private changeTitle(callback: Function) {
-    setTimeout(() => {
-      callback();
-    }, 2000);
-  }
-
-  private onComplete() {
-    return new Promise<void>(resolve => {
-      setInterval(() => {
-        resolve();
-      }, 2000);
-    });
-  }
-
-
 }
