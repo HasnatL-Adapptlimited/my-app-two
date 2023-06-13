@@ -17,7 +17,9 @@ export class AppComponent {
   }
 
   private changeTitle(callback: Function) {
-    this.changeTitle(this.setTitle);
+    setTimeout(() => {
+      callback();
+    }, 2000);
   }
 
 
